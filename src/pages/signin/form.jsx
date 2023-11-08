@@ -1,30 +1,35 @@
-import React from 'react'
-import TextInputWithLabel from '../../components/TextInputWithLabel'
-import SButton from '../../components/Button'
-import { Form } from 'react-bootstrap'
-
+import React from 'react';
+import SButton from '../../components/Button';
+import TextInputWithLabel from '../../components/TextInputWithLabel';
+import { Form } from 'react-bootstrap';
 
 export default function SForm({ form, handleChange, handleSubmit, isLoading }) {
     return (
         <Form>
             <TextInputWithLabel
-                label={"Email Address"}
-                name={"email"}
+                placeholder={'Masukan email'}
+                label={'Email'}
+                name='email'
                 value={form?.email}
-                type={'email'}
+                type='email'
                 onChange={handleChange}
-                placeholder={'Enter email'}
             />
-
-            <TextInputWithLabel label={"Password"}
-                name={"password"}
+            <TextInputWithLabel
+                placeholder={'Masukan password'}
+                label={'Password'}
+                name='password'
                 value={form?.password}
-                type={'password'}
+                type='password'
                 onChange={handleChange}
-                placeholder={'Enter Password'} />
-            <SButton disabled={isLoading} loading={isLoading} variant="primary" type="submit" action={handleSubmit}>
+            />
+            <SButton
+                loading={isLoading}
+                disabled={isLoading}
+                variant='primary'
+                action={handleSubmit}
+            >
                 Submit
             </SButton>
         </Form>
-    )
+    );
 }

@@ -1,61 +1,77 @@
-import React, { useState } from 'react'
-import { Card, Container } from 'react-bootstrap'
-import axios, * as others from 'axios';
+import React, { useState } from 'react';
+import { Card, Container } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import SAlert from '../../components/Alert';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { config } from '../../configs';
 import SForm from './form';
+import { postData } from '../../utils/fetch';
+import { useDispatch } from 'react-redux';
+import { userLogin } from '../../redux/auth/actions';
 
-export default function PageSignIn() {
-
-    const navigate = useNavigate()
+function PageSignin() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [form, setForm] = useState({
-        email: "",
-        password: ""
-    })
+        email: '',
+        password: '',
+    });
 
     const [alert, setAlert] = useState({
         status: false,
-        message: "",
-        type: 'danger'
-    })
+        message: '',
+        type: '',
+    });
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value })
-    }
-
-    const [isLoading, setIsLoading] = useState(false)
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
 
     const handleSubmit = async () => {
-        setIsLoading(true)
         try {
-            const res = await axios.post(`${config.api_host_dev}/cms/signin`, form)
+            setIsLoading(true);
 
+            const res = await postData(`/cms/signin`, form);
+            dispatch(
+                userLogin(
+                    res.data.data.token,
+                    res.data.data.role,
+                    // res.data.data.refreshToken
+                )
+            );
 
-            setAlert({ status: true, message: 'berhasil login', type: 'success' })
-            localStorage.setItem('token', res.data.data.token)
-            setIsLoading(false)
-
-            navigate('/')
-        } catch (error) {
-            setAlert({ status: true, message: error?.response.data.msg ?? 'Internal Server Error', type: 'danger' })
-            setIsLoading(false)
+            setIsLoading(false);
+            navigate('/');
+        } catch (err) {
+            setIsLoading(false);
+            setAlert({
+                status: true,
+                message: err?.response?.data?.msg ?? 'Internal server error',
+                type: 'danger',
+            });
         }
-    }
-    const token = localStorage.getItem('token')
+    };
 
-    if (token) return <Navigate to="/" replace={true} />
     return (
         <Container md={12} className='my-5'>
-            <div className="m-auto" style={{ width: '50%' }}>
-                {alert.status && <SAlert Type={alert.type} message={alert.message} />}
+            <div className='m-auto' style={{ width: '50%' }}>
+                {alert.status && (
+                    <SAlert variant={alert.type} message={alert.message} />
+                )}
             </div>
             <Card style={{ width: '50%' }} className='m-auto mt-5'>
                 <Card.Body>
-                    <Card.Title className='text-center' >Sign In</Card.Title>
-                    <SForm form={form} handleChange={handleChange} handleSubmit={handleSubmit} isLoading={isLoading} />
+                    <Card.Title className='text-center'>Form Signin</Card.Title>
+                    <SForm
+                        form={form}
+                        handleChange={handleChange}
+                        isLoading={isLoading}
+                        handleSubmit={handleSubmit}
+                    />
                 </Card.Body>
             </Card>
         </Container>
-    )
+    );
 }
+
+export default PageSignin;
