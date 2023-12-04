@@ -1,7 +1,7 @@
 import {
-    START_FETCHING_CATEGORIES,
-    SUCCESS_FETCHING_CATEGORIES,
-    ERROR_FETCHING_CATEGORIES,
+    START_FETCHING_PAYMENTS,
+    SUCCESS_FETCHING_PAYMENTS,
+    ERROR_FETCHING_PAYMENTS,
 } from './constants';
 
 const statuslist = {
@@ -13,23 +13,25 @@ const statuslist = {
 
 const initialState = {
     data: [],
+    keyword: '',
     status: statuslist.idle,
 };
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case START_FETCHING_CATEGORIES:
+        case START_FETCHING_PAYMENTS:
             return { ...state, status: statuslist.process };
 
-        case ERROR_FETCHING_CATEGORIES:
+        case ERROR_FETCHING_PAYMENTS:
             return { ...state, status: statuslist.error };
 
-        case SUCCESS_FETCHING_CATEGORIES:
+        case SUCCESS_FETCHING_PAYMENTS:
             return {
                 ...state,
                 status: statuslist.success,
-                data: action.categories,
+                data: action.payments,
             };
+
         default:
             return state;
     }

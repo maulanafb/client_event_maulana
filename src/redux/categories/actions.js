@@ -33,14 +33,11 @@ export const errorFetchingCategories = () => {
 export const fetchCategories = () => {
     return async (dispatch) => {
         dispatch(startFetchingCategories());
-
         try {
             setTimeout(() => {
                 dispatch(clearNotif());
             }, 3000);
-
             let res = await debouncedFetchCategories('/cms/categories');
-
             dispatch(
                 successFetchingCategories({
                     categories: res.data.data,

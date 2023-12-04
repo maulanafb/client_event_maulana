@@ -7,7 +7,6 @@ export async function getData(url, params) {
         const { token } = localStorage.getItem('auth')
             ? JSON.parse(localStorage.getItem('auth'))
             : {};
-
         return await axios.get(`${config.api_host_dev}${url}`, {
             params,
             headers: {
