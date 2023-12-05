@@ -1,11 +1,10 @@
 import React from 'react'
-import { Nav, Container, Navbar, Breadcrumb, Table } from 'react-bootstrap';
-import { Navigate } from 'react-router-dom';
-import SButton from '../../components/Button';
-import SBreadCrumb from '../../components/Breadcrumb';
-import SNavbar from '../../components/Navbar';
+import { Container, } from 'react-bootstrap';
 
-export default function Dashboard() {
+import SBreadCrumb from '../../components/Breadcrumb';
+
+
+export default function Home() {
     return (
         <>
 
