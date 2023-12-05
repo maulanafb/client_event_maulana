@@ -1,6 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 
-import Home from '../pages/Dashboard';
+const Home = () => {
+    return (
+        <div>
+            Dashboard
+        </div>
+    )
+}
 
 export function HomeRoute() {
     return (
@@ -9,3 +15,4 @@ export function HomeRoute() {
         </Routes>
     );
 }
+
