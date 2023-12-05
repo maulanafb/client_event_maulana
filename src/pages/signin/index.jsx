@@ -7,7 +7,7 @@ import { postData } from '../../utils/fetch';
 import { useDispatch } from 'react-redux';
 import { userLogin } from '../../redux/auth/actions';
 
-function PageSignin() {
+function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [form, setForm] = useState({
@@ -36,7 +36,8 @@ function PageSignin() {
                 userLogin(
                     res.data.data.token,
                     res.data.data.role,
-                    // res.data.data.refreshToken
+                    res.data.data.email,
+                    res.data.data.refreshToken
                 )
             );
 
@@ -74,4 +75,4 @@ function PageSignin() {
     );
 }
 
-export default PageSignin;
+export default Login;

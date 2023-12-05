@@ -1,10 +1,9 @@
 import React from 'react';
 import Button from '../Button';
 import { useNavigate } from 'react-router-dom';
-import { Image } from 'react-bootstrap';
+import { Image, Spinner } from 'react-bootstrap';
 import moment from 'moment';
 import { config } from '../../configs';
-import Skeleton from '../../pages/Categories/skeleton';
 
 function TbodyWithAction({
     data,
@@ -20,14 +19,9 @@ function TbodyWithAction({
         <tbody>
             {status === 'process' ? (
                 <tr>
-                    <td style={{ textAlign: 'center' }}>
+                    <td colSpan={display.length + 1} style={{ textAlign: 'center' }}>
                         <div className='flex items-center justify-center'>
-                            <Skeleton />
-                        </div>
-                    </td>
-                    <td style={{ textAlign: 'center' }}>
-                        <div className='flex items-center justify-center'>
-                            <Skeleton />
+                            <Spinner animation='border' variant='primary' />
                         </div>
                     </td>
                 </tr>

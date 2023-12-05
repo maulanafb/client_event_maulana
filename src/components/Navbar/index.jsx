@@ -6,15 +6,13 @@ import {
     accessOrders,
     accessPayments,
     accessTalents,
+    accessOrganizers,
+    accessAdmin
 } from '../../const/access';
 import NavLink from '../NavAccess';
 
 export default function Header() {
     const [role, setRole] = useState(null);
-
-    console.log('role');
-    console.log(role);
-
     useEffect(() => {
         const fetchData = () => {
             let { role } = localStorage.getItem('auth')
@@ -52,6 +50,12 @@ export default function Header() {
                     </NavLink>
                     <NavLink role={role} roles={accessOrders.lihat} to='/orders'>
                         Order
+                    </NavLink>
+                    <NavLink role={role} roles={accessOrganizers.lihat} to='/organizers'>
+                        Organizers
+                    </NavLink>
+                    <NavLink role={role} roles={accessAdmin.lihat} to='/admins'>
+                        Admins
                     </NavLink>
                 </Nav>
                 <Nav className='justify-content-end'>

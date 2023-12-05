@@ -46,7 +46,6 @@ export default function SpeakersForm({
                             alt='171x180'
                             src={`${config.api_image}/${form.avatar}`}
                         />
-
                         <Figure.Caption>Perview image avatar</Figure.Caption>
                     </Figure>
                 </div>
